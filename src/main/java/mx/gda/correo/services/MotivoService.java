@@ -21,12 +21,19 @@ public class MotivoService {
 	/* Guarda el registro en base */
 	public Motivo saveMotivo(Motivo motivo) {
 		// default settings
+		logger.info(" Se consume método:  saveMotivo ");
+		logger.debug("Korigen      : {}",motivo.getKorigen());
+		logger.debug("Sdescripcion : {}",motivo.getSdescripcion());
 		motivo.setSdescripcion(motivo.getSdescripcion().toUpperCase().trim());
 		return motivoRepository.saveAndFlush(motivo);
 	}
 	
 	/* Actualiza el registro */
 	public Motivo updateMotivo(Motivo motivo) {
+		logger.info(" Se consume método:  updateMotivo ");
+		logger.debug("Kmotivo      : {}",motivo.getKmotivo());
+		logger.debug("Korigen      : {}",motivo.getKorigen());
+		logger.debug("Sdescripcion : {}",motivo.getSdescripcion());
 		if(!motivoRepository.findById(motivo.getKmotivo()).isPresent()) {
 			logger.error("Error en updateMotivo: El kmotivo  no existe {}",motivo.getKmotivo());
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El kmotivo  no existe");
