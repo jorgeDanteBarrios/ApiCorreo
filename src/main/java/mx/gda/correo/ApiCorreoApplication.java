@@ -2,6 +2,7 @@ package mx.gda.correo;
 
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2   //tag to enable swagger
 public class ApiCorreoApplication {
+	
+	@Value("${info.app.version}")
+	private String APP_VERSION;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiCorreoApplication.class, args);
@@ -37,7 +41,7 @@ public class ApiCorreoApplication {
 		return new ApiInfo(
 				"API Correo",   //title
 				"API desarrollada para el envio de correos por parte de GDA",           //description
-				"1.0",				  //version
+				APP_VERSION,				  //version
 				null,//"API constructed for GDA, use internal only", //termsOfServiceUrl
 				new springfox.documentation.service.Contact("Equipo de Desarrollo de TI",null, "marco.sosa@gda.mx"),   //name,url, email
 				"Grupo Diagnóstico Aries",        //license
