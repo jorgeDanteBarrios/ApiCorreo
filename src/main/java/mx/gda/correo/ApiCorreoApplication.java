@@ -20,6 +20,10 @@ public class ApiCorreoApplication {
 	
 	@Value("${info.app.version}")
 	private String APP_VERSION;
+	@Value("${info.app.name}")
+	private String APP_NAME;
+	@Value("${info.app.description}")
+	private String APP_DESCRIPTION;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiCorreoApplication.class, args);
@@ -39,8 +43,8 @@ public class ApiCorreoApplication {
 	/* Overwrite apiInfo for set our information  */
 	private ApiInfo myApiDetails() {
 		return new ApiInfo(
-				"API Correo",   //title
-				"API desarrollada para el envio de correos por parte de GDA",           //description
+				APP_NAME,   //title
+				APP_DESCRIPTION,           //description
 				APP_VERSION,				  //version
 				null,//"API constructed for GDA, use internal only", //termsOfServiceUrl
 				new springfox.documentation.service.Contact("Equipo de Desarrollo de TI",null, "marco.sosa@gda.mx"),   //name,url, email

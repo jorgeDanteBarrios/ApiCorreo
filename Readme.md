@@ -19,8 +19,17 @@ mvn spring-boot:run
 ```
 
 Antes de ejecutar el proyecto se debe de considerar las siguientes configuraciones en el **properties**:
-* Verificar el perfil de `spring.profiles.active` tenga el valor de `dev` para que el log se pueda visualizar en consola (nivel debug configurado para este perfil)
-* Las credenciales de base de datos esten apuntando a un ambiente local/ desarrollo (**spring.datasource**)
+* Comentar las siguiente linea
+
+```shell
+ logging.pattern.console=
+```
+* Descomentar la siguiente linea 
+
+```shell
+ spring.boot.admin.client.enabled=false
+```
+* Validar que las credenciales de base de datos esten apuntando a un ambiente local/ desarrollo (**spring.datasource**)
 * Validar el número máximo de conexiones (**spring.datasource.hikari.maximumPoolSize**)
 
 

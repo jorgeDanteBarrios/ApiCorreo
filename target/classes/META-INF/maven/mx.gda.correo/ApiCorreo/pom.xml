@@ -12,7 +12,6 @@
 	<artifactId>ApiCorreo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ApiCorreo</name>
-	<description>API para el envio de Correo electronico </description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -89,4 +88,5 @@
 		</plugins>
 	</build>
 
+	<description>API desarrollada para el envio de correos por parte de GDA</description>
 </project>
