@@ -13,7 +13,7 @@ public class CustomIDGenerator implements IdentifierGenerator {
 	@Override
 	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
 		// TODO Auto-generated method stub
-		SimpleDateFormat dt = new SimpleDateFormat("ddMMyyyy_HHmmssSSS"); 		
+		SimpleDateFormat dt = new SimpleDateFormat("ddMMyyyy_HHmmssSSSSS"); 		
 		return dt.format(new Date()).toString();	
 	}
 

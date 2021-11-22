@@ -57,6 +57,7 @@ public class ApiCorreoController {
 	}
 	
 	@PostMapping("/sendEmail")
+	//@Transactional(timeout = 60)
 	@ApiOperation(value = "Envia Correo",notes = "Método para enviar un correo electrónico")
 	public Boolean sendEmail(@Valid @RequestBody Email email) {
 		return correoService.sendEmail(email);
@@ -70,25 +71,25 @@ public class ApiCorreoController {
 	
 	@PostMapping("/origen")
 	@ApiOperation(value = "Guarda origen",notes = "Método para guardar un registro de tipo origen al catálogo")
-	public ResponseEntity<Origen> saveOrigen(@RequestBody Origen origen){
+	public ResponseEntity<Origen> saveOrigen(@RequestBody @Valid Origen origen){
 		return ResponseEntity.ok(origenService.saveOrigen(origen));
 	}
 	
 	@PutMapping("/origen")
 	@ApiOperation(value = "Actualiza origen",notes = "Método para actualizar un registro de tipo origen al catálogo")
-	public ResponseEntity<Origen> updateOrigen(@RequestBody Origen origen){
+	public ResponseEntity<Origen> updateOrigen(@RequestBody @Valid Origen origen){
 		return ResponseEntity.ok(origenService.updateOrigen(origen));
 	}
 	
 	@PostMapping("/motivo")
 	@ApiOperation(value = "Guarda motivo",notes = "Método para actualizar un registro de tipo motivo al catálogo")
-	public ResponseEntity<Motivo> saveMotivo(@RequestBody Motivo motivo){
+	public ResponseEntity<Motivo> saveMotivo(@RequestBody @Valid Motivo motivo){
 		return ResponseEntity.ok(motivoService.saveMotivo(motivo));
 	}
 	
 	@PutMapping("/motivo")
 	@ApiOperation(value = "Actualiza motivo",notes = "Método para actualizar un registro de tipo motivo al catálogo")
-	public ResponseEntity<Motivo> updateMotivo(@RequestBody Motivo motivo){
+	public ResponseEntity<Motivo> updateMotivo(@RequestBody @Valid Motivo motivo){
 		return ResponseEntity.ok(motivoService.saveMotivo(motivo));
 	}
 	
