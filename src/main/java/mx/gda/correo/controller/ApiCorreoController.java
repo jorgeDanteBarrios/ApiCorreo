@@ -28,7 +28,9 @@ import io.swagger.annotations.ApiOperation;
 import mx.gda.correo.entities.Motivo;
 import mx.gda.correo.entities.Origen;
 import mx.gda.correo.objects.Email;
+import mx.gda.correo.objects.EnviaResCovid;
 import mx.gda.correo.objects.Webhook;
+import mx.gda.correo.services.CorreoResultadosService;
 import mx.gda.correo.services.CorreoService;
 import mx.gda.correo.services.MotivoService;
 import mx.gda.correo.services.OrigenService;
@@ -48,6 +50,8 @@ public class ApiCorreoController {
 	private OrigenService origenService;
 	@Autowired
 	private MotivoService motivoService;
+	@Autowired
+	private CorreoResultadosService correoResultadosService;
 	
 	
 	@GetMapping("/getSenders")
@@ -61,7 +65,13 @@ public class ApiCorreoController {
 	@ApiOperation(value = "Envia Correo",notes = "Método para enviar un correo electrónico")
 	public Boolean sendEmail(@Valid @RequestBody Email email) {
 		return correoService.sendEmail(email);
-	}	
+	}
+	
+	@PostMapping("/sendEmail/resultados/covid")
+	@ApiOperation(value = "Envia Correo resultados covid",notes = "Método para enviar los resultados de una prueba de covid por correo")
+	public Boolean sendResultadoCovid(@Valid @RequestBody EnviaResCovid enviaResCovid) {
+		return correoResultadosService.sendResultadoCovid(enviaResCovid);
+	}
 	
 	@PostMapping("/webhook")
 	@ApiOperation(value = "Registra trazabilidad",notes = "Método para registrar la trazabilidad de un correo electrónico")
