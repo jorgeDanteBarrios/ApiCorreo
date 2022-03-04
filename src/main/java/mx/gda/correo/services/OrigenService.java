@@ -20,9 +20,6 @@ public class OrigenService {
 	/* Guarda el registro en base */
 	public Origen saveOrigen(Origen  origen) {
 		Origen salida;
-		logger.info(" Se consume método:  registerTraceability ");
-		logger.debug("Sclave      : {}",origen.getSclave());
-		logger.debug("Sdescipcion : {}",origen.getSdescripcion());
 		if(getOrigenBySclave(origen.getSclave())!=null) {
 			logger.error("Error en saveOrigen: Clave ya existente {}",origen.getSclave().toUpperCase().trim());
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Clave ya existente");
@@ -42,10 +39,6 @@ public class OrigenService {
 	/* Actualiza el registro */
 	public Origen updateOrigen(Origen origen) {
 		Origen salida;
-		logger.info(" Se consume método:  updateOrigen ");
-		logger.debug("korigen     : {}",origen.getKorigen());
-		logger.debug("Sclave      : {}",origen.getSclave());
-		logger.debug("Sdescipcion : {}",origen.getSdescripcion());
 		if(!origenRepository.findById(origen.getKorigen()).isPresent()) {
 			logger.error("Error en updateOrigen: El korigen  no existe {}",origen.getKorigen());
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El korigen  no existe");

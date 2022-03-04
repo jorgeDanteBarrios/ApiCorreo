@@ -23,6 +23,7 @@ public class SenderService {
 	public Sender saveSender(Sender sender) {
 		//default values
 		sender.setNcmarca((sender.getNcmarca()==null)?new Long(0):sender.getNcmarca());
+		sender.setNestado(1);
 		return senderRepository.saveAndFlush(sender);
 		
 	}

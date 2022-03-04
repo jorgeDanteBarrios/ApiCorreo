@@ -36,9 +36,8 @@ public class CorreoResultadosService {
 	@Autowired
 	private CorreoService correoService;
 	
+	/* Método para enviar resultados de pruebas rápidas Covid */
 	public Boolean sendResultadoCovid(EnviaResCovid enviaResCovid) {
-		logger.info(" Se consume método:  sendResultadoCovid ");
-		logger.debug(enviaResCovid.toString());
 		Boolean salida=false;
 		Email tmpEmail=new Email();
 		Plantilla tmpPlantilla=null;
@@ -49,19 +48,25 @@ public class CorreoResultadosService {
 			logger.error("Error en updateMotivo: El kmotivo  no existe {}","No existe una plantilla (resultados covid) para la marca");
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No existe una plantilla (resultados covid) para la marca");
 		}
+		//set values
 		tmpSender=senderRepository.findById(tmpPlantilla.getKsender());
-		tmpEmail.setSenderId(tmpPlantilla.getKsender());
-		tmpEmail.setSubject(tmpPlantilla.getSasunto());
+		tmpEmail.setSenderId(tmpPlantilla.getKsender());		
 		if(tmpSender.get().getSreplyto()!=null) {
 			tmpEmail.setReplyTo(tmpSender.get().getSreplyto());
 		}
+		tmpEmail.setTo(enviaResCovid.getTo());
+		if(enviaResCovid.getCc()!=null) {
+			tmpEmail.setCc(enviaResCovid.getCc());
+		}
+		if(enviaResCovid.getBcc()!=null) {
+			tmpEmail.setBcc(enviaResCovid.getBcc());
+		}
+		tmpEmail.setSubject(tmpPlantilla.getSasunto());
 		tmpEmail.setHtmlBody(tmpPlantilla.getSplantilla().replace("{px}", enviaResCovid.getPaciente().toUpperCase().trim()));
+		tmpEmail.setFiles(enviaResCovid.getFiles());
 		tmpEmail.setSclave(CLAVE_RESULTADOS_COVID);
 		tmpEmail.setMotivo(MOTIVO_RESULTADOS_COVID);		
-		//set values
-		tmpEmail.setTo(enviaResCovid.getTo());
 		tmpEmail.setTag(enviaResCovid.getKordensucursal());
-		tmpEmail.setFiles(enviaResCovid.getFiles());
 		tmpEmail.setUser_reg("system");
 		salida= correoService.sendEmail(tmpEmail);			
 		return salida;

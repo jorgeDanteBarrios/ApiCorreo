@@ -4,69 +4,45 @@ import java.util.List;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 
 public class Email {
-	
-	@NotEmpty(message = "Se debe utilizar un identificador para poder tener trazabilidad del correo")
-	@ApiModelProperty(value = "Identificador único para poder tener trazabilidad del correo (#Orden,#Px,#Médico,etc.)",example = "t_123456")
-	private String tag;
+
 	@Min(value = 1)
 	@ApiModelProperty(value = "Identificador de la cuenta origen (sender)")
 	private Long senderId;
-	@NotEmpty(message = "La lista de destinatarios no puede ser nula")
+	@ApiModelProperty(value = "Dirección(es) a la cual se indicará se debe responder")
+	private String replyTo;
+	@NotNull(message = "La lista de destinatarios no puede ser nula")
+	@ApiModelProperty(value = "Email(s) a los cuales esta digirigo el correo")
 	private List<String> to;
+	@ApiModelProperty(value = "Email(s) a los cualesse realizará una copia del correo")
+	private List<String> cc;
+	@ApiModelProperty(value = "Email(s) a los cualesse realizará una copia oculta del correo")
+	private List<String> bcc;
 	@NotEmpty(message = "El campo de subjet no puede ser nulo")
 	private String subject;
 	@NotEmpty(message = "El campo de htmlBody no puede ser nulo")
 	private String htmlBody;
-	@ApiModelProperty(value = "Dirección a la cual se indicará se debe responder")
-	private String replyTo;
-	@ApiModelProperty(value = "Dirección a la cual se realizará una copia oculta del correo")
-	private String bcc;
+	@ApiModelProperty(value = "Archivo(s) en base 64 a adjuntar en el correo, maximo 10MB")
 	private List<EmailFile> files;
 	@NotEmpty(message = "Favor de ingresar la clave del origen del correo")
 	@ApiModelProperty(value = "Identificador del origen del correo")
 	private String sclave;
-	@Min(value = 1,message = "Favor de ingresar un motivo del catálogo de motivos")
+	@Min(value = 1, message = "Favor de ingresar un motivo del catálogo de motivos")
+	@ApiModelProperty(value = "Identificador del motivo del correo")
 	private Long motivo;
+	@NotEmpty(message = "Se debe utilizar un identificador para poder tener trazabilidad del correo")
+	@ApiModelProperty(value = "Identificador único para poder tener trazabilidad del correo (#Orden,#Px,#Médico,etc.)", example = "t_123456")
+	private String tag;
 	@ApiModelProperty(value = "Usuario que solicita la petición de envio del correo")
 	private String user_reg;
-	
+
 	public Email() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public Email(
-			@NotEmpty(message = "Se debe utilizar un identificador para poder tener trazabilidad del correo") String tag,
-			@Min(1) Long senderId, @NotEmpty(message = "La lista de destinatarios no puede ser nula") List<String> to,
-			@NotEmpty(message = "El campo de subjet no puede ser nulo") String subject,
-			@NotEmpty(message = "El campo de htmlBody no puede ser nulo") String htmlBody, String replyTo, String bcc,
-			List<EmailFile> files,
-			@NotEmpty(message = "Favor de ingresar la clave del origen del correo") String sclave,
-			@NotEmpty(message = "Favor de ingresar un valor del catálogo de motivos") Long motivo, String user_reg) {
-		super();
-		this.tag = tag;
-		this.senderId = senderId;
-		this.to = to;
-		this.subject = subject;
-		this.htmlBody = htmlBody;
-		this.replyTo = replyTo;
-		this.bcc = bcc;
-		this.files = files;
-		this.sclave = sclave;
-		this.motivo = motivo;
-		this.user_reg = user_reg;
-	}
-
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
 	}
 
 	public Long getSenderId() {
@@ -77,12 +53,36 @@ public class Email {
 		this.senderId = senderId;
 	}
 
+	public String getReplyTo() {
+		return replyTo;
+	}
+
+	public void setReplyTo(String replyTo) {
+		this.replyTo = replyTo;
+	}
+
 	public List<String> getTo() {
 		return to;
 	}
 
 	public void setTo(List<String> to) {
 		this.to = to;
+	}
+
+	public List<String> getCc() {
+		return cc;
+	}
+
+	public void setCc(List<String> cc) {
+		this.cc = cc;
+	}
+
+	public List<String> getBcc() {
+		return bcc;
+	}
+
+	public void setBcc(List<String> bcc) {
+		this.bcc = bcc;
 	}
 
 	public String getSubject() {
@@ -99,22 +99,6 @@ public class Email {
 
 	public void setHtmlBody(String htmlBody) {
 		this.htmlBody = htmlBody;
-	}
-
-	public String getReplyTo() {
-		return replyTo;
-	}
-
-	public void setReplyTo(String replyTo) {
-		this.replyTo = replyTo;
-	}
-
-	public String getBcc() {
-		return bcc;
-	}
-
-	public void setBcc(String bcc) {
-		this.bcc = bcc;
 	}
 
 	public List<EmailFile> getFiles() {
@@ -141,6 +125,14 @@ public class Email {
 		this.motivo = motivo;
 	}
 
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
 	public String getUser_reg() {
 		return user_reg;
 	}
@@ -149,8 +141,11 @@ public class Email {
 		this.user_reg = user_reg;
 	}
 
+	@Override
+	public String toString() {
+		return "Email [senderId=" + senderId + ", replyTo=" + replyTo + ", to=" + to + ", cc=" + cc + ", bcc=" + bcc
+				+ ", subject=" + subject + ", htmlBody=" + htmlBody + ", files=" + files + ", sclave=" + sclave
+				+ ", motivo=" + motivo + ", tag=" + tag + ", user_reg=" + user_reg + "]";
+	}
 
-	
-	
-	
 }
