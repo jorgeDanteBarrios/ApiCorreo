@@ -9,18 +9,18 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "c_origen",schema = "email")
+@Table(name = "c_origen", schema = "email")
 public class Origen {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "secOrigen")
-	@SequenceGenerator(name = "secOrigen",sequenceName = "origen_sequence",schema = "email",allocationSize=1)
+	@SequenceGenerator(name = "secOrigen", sequenceName = "origen_sequence", schema = "email", allocationSize = 1)
 	private Long korigen;
 	@NotEmpty(message = "Favor de ingresar la clave de origen")
 	private String sclave;
 	@NotEmpty(message = "Favor de ingresar la descripción del origen")
 	private String sdescripcion;
-	
+
 	public Origen() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -57,8 +57,10 @@ public class Origen {
 	public void setSdescripcion(String sdescripcion) {
 		this.sdescripcion = sdescripcion;
 	}
-		
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Origen [korigen=" + korigen + ", sclave=" + sclave + ", sdescripcion=" + sdescripcion + "]";
+	}
+
 }

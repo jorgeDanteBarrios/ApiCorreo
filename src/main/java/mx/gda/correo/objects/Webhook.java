@@ -188,8 +188,12 @@ public class Webhook {
 		this.ts_epoch = ts_epoch;
 	}
 
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Webhook [webhookid=" + webhookid + ", email=" + email + ", subject=" + subject + ", event=" + event
+				+ ", link=" + link + ", reason=" + reason + ", date=" + date + ", sending_ip=" + sending_ip
+				+ ", messageId=" + messageId + ", templateid=" + templateid + ", tag=" + tag + ", tags=" + tags
+				+ ", ts=" + ts + ", ts_event=" + ts_event + ", ts_epoch=" + ts_epoch + "]";
+	}
 
 }
