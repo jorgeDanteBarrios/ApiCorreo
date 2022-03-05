@@ -162,8 +162,8 @@ public class CorreoService {
 		sendSmtpEmail.setSubject(email.getSubject());
 		sendSmtpEmail.setHtmlContent(email.getHtmlBody());
 		// Add Tags ( 0 - Origen, 1- Motivo, 2- Identificador / TAG, 3-user )
-		//sendSmtpEmail.addTagsItem("TEST");
-		sendSmtpEmail.addTagsItem(email.getSclave().toUpperCase().trim());
+		sendSmtpEmail.addTagsItem("TEST");
+		//sendSmtpEmail.addTagsItem(email.getSclave().toUpperCase().trim());
 		sendSmtpEmail.addTagsItem(email.getMotivo().toString());
 		sendSmtpEmail.addTagsItem(email.getTag());
 		sendSmtpEmail.addTagsItem(email.getUser_reg());
