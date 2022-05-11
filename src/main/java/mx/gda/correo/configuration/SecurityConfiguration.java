@@ -24,6 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.withUser("admin").password(passwordEncoder().encode("n57KrFBwt")).roles("ADMIN")  //admin
 		.and()
 		.withUser("apiCorreoUser").password(passwordEncoder().encode("ocyTBs@u&W!N")).roles("REGISTRA")  // for external
+		.and()
+		.withUser("svitlaUser").password(passwordEncoder().encode("E3O@dpB%Uj*i")).roles("REGISTRA")  // for svitla
 		;
 	}
 	
