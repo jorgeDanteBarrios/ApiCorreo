@@ -1,6 +1,5 @@
 package mx.gda.correo.objects;
 
-import java.util.Optional;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -11,13 +10,10 @@ public class EmailFile {
 	private String contentBase64;
 	
 	public EmailFile() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();	
 	}
 
-	public EmailFile(@NotEmpty(message = "El campo de name no puede ser nulo") String name, String contentBase64,
-			Optional<byte[]> content) {
-		super();
+	public EmailFile(String name, String contentBase64) {
 		this.name = name;
 		this.contentBase64 = contentBase64;
 	}

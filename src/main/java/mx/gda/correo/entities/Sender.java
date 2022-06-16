@@ -10,7 +10,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -43,14 +42,9 @@ public class Sender {
 
 	public Sender() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Sender(Long ksender, @NotEmpty(message = "El campo ssender no puede ser nulo o vacio") String ssender,
-			Long ncmarca, @NotEmpty(message = "El campo semail no puede ser nulo o vacio") String semail,
-			String sreplyto, String sobservaciones, Integer nestado, Date dreg, String user_reg, Date dmod,
-			String user_mod) {
-		super();
+	public Sender(Long ksender, String ssender, Long ncmarca, String semail, String sreplyto, String sobservaciones, Integer nestado, Date dreg, String user_reg, Date dmod, String user_mod) {
 		this.ksender = ksender;
 		this.ssender = ssender;
 		this.ncmarca = ncmarca;
@@ -63,7 +57,7 @@ public class Sender {
 		this.dmod = dmod;
 		this.user_mod = user_mod;
 	}
-
+	
 	public Long getKsender() {
 		return ksender;
 	}

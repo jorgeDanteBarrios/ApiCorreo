@@ -20,7 +20,6 @@ public class AlternativeEmail {
 	
 	public AlternativeEmail() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public AlternativeEmail(@NotEmpty(message = "La lista de destinatarios no puede ser nula") List<String> to,

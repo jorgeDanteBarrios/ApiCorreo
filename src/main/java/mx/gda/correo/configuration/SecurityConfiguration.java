@@ -1,7 +1,9 @@
 package mx.gda.correo.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,14 +19,27 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	Environment env;
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		/*	 add {noop} when dont use PasswordEncoder Ej  password("{noop}admin123")*/
-		auth.inMemoryAuthentication()
-		.withUser("admin").password(passwordEncoder().encode("n57KrFBwt")).roles("ADMIN")  //admin
-		.and()
-		.withUser("apiCorreoUser").password(passwordEncoder().encode("ocyTBs@u&W!N")).roles("REGISTRA")  // for external
-		;
+		if(env.getActiveProfiles()[0].equals("prod")){
+			auth.inMemoryAuthentication()
+			.withUser("admin").password(passwordEncoder().encode("n57KrFBwt")).roles("ADMIN")  //admin
+			.and()
+			.withUser("apiCorreoUser").password(passwordEncoder().encode("ocyTBs@u&W!N")).roles("REGISTRA")  // for external
+			;
+		}else{
+			auth.inMemoryAuthentication()
+			.withUser("admin").password(passwordEncoder().encode("n57KrFBwt")).roles("ADMIN")  //admin
+			.and()
+			.withUser("apiCorreoUser").password(passwordEncoder().encode("ocyTBs@u&W!N")).roles("REGISTRA")  // for external
+			.and()
+			.withUser("svitlaUser").password(passwordEncoder().encode("E3O@dpB%Uj*i")).roles("REGISTRA") 
+			;
+		}		
 	}
 	
 	@Override
@@ -65,6 +80,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		corsConfiguration.addAllowedMethod("*");
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsConfiguration);
-		return (CorsConfigurationSource) source;
+		return source;
 	}
 }

@@ -6,43 +6,42 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class Email {
 
 	@Min(value = 1)
-	@ApiModelProperty(value = "Identificador de la cuenta origen (sender)")
+	@Schema(description =  "Identificador de la cuenta origen (sender)")
 	private Long senderId;
-	@ApiModelProperty(value = "Dirección(es) a la cual se indicará se debe responder")
+	@Schema(description =  "Dirección a la cual se indicará se debe responder")
 	private String replyTo;
 	@NotNull(message = "La lista de destinatarios no puede ser nula")
-	@ApiModelProperty(value = "Email(s) a los cuales esta digirigo el correo")
+	@Schema(description =  "Email's a los cuales esta digirigo el correo")
 	private List<String> to;
-	@ApiModelProperty(value = "Email(s) a los cualesse realizará una copia del correo")
+	@Schema(description =  "Email's a los cuales se realizará una copia del correo")
 	private List<String> cc;
-	@ApiModelProperty(value = "Email(s) a los cualesse realizará una copia oculta del correo")
+	@Schema(description =  "Email's a los cuales se realizará una copia oculta del correo")
 	private List<String> bcc;
-	@NotEmpty(message = "El campo de subjet no puede ser nulo")
+	@NotEmpty(message = "El campo de asunto/subjet no puede ser nulo")
 	private String subject;
 	@NotEmpty(message = "El campo de htmlBody no puede ser nulo")
 	private String htmlBody;
-	@ApiModelProperty(value = "Archivo(s) en base 64 a adjuntar en el correo, maximo 10MB")
+	@Schema(description =  "Archivo(s) en base 64 a adjuntar en el correo, maximo 10MB")
 	private List<EmailFile> files;
 	@NotEmpty(message = "Favor de ingresar la clave del origen del correo")
-	@ApiModelProperty(value = "Identificador del origen del correo")
+	@Schema(description =  "Identificador del origen del correo")
 	private String sclave;
 	@Min(value = 1, message = "Favor de ingresar un motivo del catálogo de motivos")
-	@ApiModelProperty(value = "Identificador del motivo del correo")
+	@Schema(description =  "Identificador del motivo del correo")
 	private Long motivo;
 	@NotEmpty(message = "Se debe utilizar un identificador para poder tener trazabilidad del correo")
-	@ApiModelProperty(value = "Identificador único para poder tener trazabilidad del correo (#Orden,#Px,#Médico,etc.)", example = "t_123456")
+	@Schema(description =  "Identificador único para poder tener trazabilidad del correo (#Orden,#Px,#Médico,etc.)", example = "123456")
 	private String tag;
-	@ApiModelProperty(value = "Usuario que solicita la petición de envio del correo")
+	@Schema(description =  "Usuario que solicita la petición de envio del correo")
 	private String user_reg;
 
 	public Email() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Long getSenderId() {
