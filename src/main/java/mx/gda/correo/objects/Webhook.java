@@ -4,51 +4,48 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class Webhook {
 
 	@JsonProperty("id")
-	@ApiModelProperty(value = "Webhook id")
+	@Schema(description =  "Webhook id")
 	private String webhookid;
-	@ApiModelProperty(value = "Recipient of message")
+	@Schema(description =  "Recipient of message")
 	private String email;
-	@ApiModelProperty(value = "Message subject")
+	@Schema(description =  "Message subject")
 	private String subject;
-	@ApiModelProperty(value = "Type of Event")	
+	@Schema(description =  "Type of Event")	
 	private String event;
-	@ApiModelProperty(value = "URL accessed by recipient")
+	@Schema(description =  "URL accessed by recipient")
 	private String link;
-	@ApiModelProperty(value = "The reason the message has been deferred")
+	@Schema(description =  "The reason the message has been deferred")
 	private String reason;
-	@ApiModelProperty(value = "Date sent listed in YEAR-MONTH-DAY, HOUR:MINUTE:SECOND in your timezone")
+	@Schema(description =  "Date sent listed in YEAR-MONTH-DAY, HOUR:MINUTE:SECOND in your timezone")
 	private String date;
-	@ApiModelProperty(value = "Ip used to send message")
+	@Schema(description =  "Ip used to send message")
 	private String sending_ip;
 	@JsonProperty("message-id")
-	@ApiModelProperty(value = "Internal message id")
+	@Schema(description =  "Internal message id")
 	private String messageId;
 	@JsonProperty("template_id")
-	@ApiModelProperty(value = "Internal id of the template")
+	@Schema(description =  "Internal id of the template")
 	private String templateid;
-	@ApiModelProperty(value = "Tags you might have used to identify your message (one field)")
-	private String tag;
-	@ApiModelProperty(value = "Tags you might have used to identify your message")
+	@Schema(description =  "Tags you might have used to identify your message")
 	private List<String> tags;	
-	@ApiModelProperty(value = "Timestamp in seconds of when event occurred")
+	@Schema(description =  "Timestamp in seconds of when event occurred")
 	private Integer ts;			
-	@ApiModelProperty(value = "Time stamp in seconds GMT of when event occurred")
+	@Schema(description =  "Time stamp in seconds GMT of when event occurred")
 	private Integer ts_event;
-	@ApiModelProperty(value = "Time stamp in seconds UTC of when message was sent")
+	@Schema(description =  "Time stamp in seconds UTC of when message was sent")
 	private String ts_epoch;
 
 	public Webhook() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Webhook(String webhookid, String email, String subject, String event, String link, String reason,
-			String date, String sending_ip, String messageId, String templateid, String tag, List<String> tags,
+			String date, String sending_ip, String messageId, String templateid,  List<String> tags,
 			Integer ts, Integer ts_event, String ts_epoch) {
 		super();
 		this.webhookid = webhookid;
@@ -61,7 +58,6 @@ public class Webhook {
 		this.sending_ip = sending_ip;
 		this.messageId = messageId;
 		this.templateid = templateid;
-		this.tag = tag;
 		this.tags = tags;
 		this.ts = ts;
 		this.ts_event = ts_event;
@@ -148,14 +144,6 @@ public class Webhook {
 		this.templateid = templateid;
 	}
 
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
 	public List<String> getTags() {
 		return tags;
 	}
@@ -192,7 +180,7 @@ public class Webhook {
 	public String toString() {
 		return "Webhook [webhookid=" + webhookid + ", email=" + email + ", subject=" + subject + ", event=" + event
 				+ ", link=" + link + ", reason=" + reason + ", date=" + date + ", sending_ip=" + sending_ip
-				+ ", messageId=" + messageId + ", templateid=" + templateid + ", tag=" + tag + ", tags=" + tags
+				+ ", messageId=" + messageId + ", templateid=" + templateid +", tags=" + tags
 				+ ", ts=" + ts + ", ts_event=" + ts_event + ", ts_epoch=" + ts_epoch + "]";
 	}
 

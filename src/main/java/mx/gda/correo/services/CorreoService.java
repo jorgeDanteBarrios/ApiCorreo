@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -42,6 +43,8 @@ public class CorreoService {
 	
 	Logger logger= LoggerFactory.getLogger(CorreoService.class);
 	
+	@Autowired
+	Environment env;
 	@Value("${api.sendinBlue.key}")
 	private String API_KEY;
 	@Value("${api.sendinBlue.timeout.miliseconds}")
@@ -162,8 +165,11 @@ public class CorreoService {
 		sendSmtpEmail.setSubject(email.getSubject());
 		sendSmtpEmail.setHtmlContent(email.getHtmlBody());
 		// Add Tags ( 0 - Origen, 1- Motivo, 2- Identificador / TAG, 3-user )
-		//sendSmtpEmail.addTagsItem("TEST");
-		sendSmtpEmail.addTagsItem(email.getSclave().toUpperCase().trim());
+		if(env.getActiveProfiles()[0].equals("dev")){
+			sendSmtpEmail.addTagsItem("TEST");
+		}else{
+			sendSmtpEmail.addTagsItem(email.getSclave().toUpperCase().trim());
+		}				
 		sendSmtpEmail.addTagsItem(email.getMotivo().toString());
 		sendSmtpEmail.addTagsItem(email.getTag());
 		sendSmtpEmail.addTagsItem(email.getUser_reg());
@@ -193,39 +199,46 @@ public class CorreoService {
 		return salida;
 	}
 	
-	
 	/* Método para registrar la trazabilidad de un correo electrónico */
-	public Boolean registerTraceability(Webhook webhook) {
+	public Boolean registerTraceability(Webhook webhook){
 		Bitacora bitacora = new Bitacora();
 		Date tmpDate;
-		if (webhook.getTags() != null) {
-			if (webhook.getTags().size() >= 1) {
-				if (webhook.getTags().get(0).equalsIgnoreCase("TEST")) {
-					try {
-						bitacora.setSclave(webhook.getTags().get(0));
-						bitacora.setKmotivo(Long.valueOf(webhook.getTags().get(1)));
-						bitacora.setStag(webhook.getTags().get(2));
-						bitacora.setScorreoelectronico(webhook.getEmail());
-						bitacora.setSasunto(webhook.getSubject());
-						bitacora.setSwebhookid(webhook.getWebhookid());
-						bitacora.setSevento(webhook.getEvent());
-						tmpDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(webhook.getDate());
-						bitacora.setDevento(tmpDate);
-						bitacora.setUser_reg(webhook.getTags().get(3));
-						bitacora.setSlink(webhook.getLink());
-						bitacora.setSreason(webhook.getReason());
-						bitacora.setSsendingip(webhook.getSending_ip());
-						bitacora.setSmessageid(webhook.getMessageId());
-						bitacoraService.saveBitacora(bitacora);
-					} catch (Exception e) {
-						// e.printStackTrace();
-						logger.error("Error en método registerTraceability: {}", e.getMessage());
-						throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-					}
-				}
+		if(webhook.getTags() != null && webhook.getTags().size()== 4){
+			if(webhook.getTags().get(0).equals("TEST")){
+				return true;
 			}
+			bitacora.setSclave(webhook.getTags().get(0));
+			bitacora.setKmotivo(Long.valueOf(webhook.getTags().get(1)));
+			bitacora.setStag(webhook.getTags().get(2));
+			bitacora.setUser_reg(webhook.getTags().get(3));
+		}else{
+			bitacora.setSclave("UNKNOWN");
+			bitacora.setKmotivo(Long.valueOf(20));
+			if (webhook.getTags()!= null && webhook.getTags().size()>=1){				
+				bitacora.setStag(webhook.getTags().get(0));
+			}else{
+				bitacora.setStag("");
+			}
+			bitacora.setUser_reg("desconocido");
+		}
+		try {							
+			bitacora.setScorreoelectronico(webhook.getEmail());
+			bitacora.setSasunto(webhook.getSubject());
+			bitacora.setSwebhookid(webhook.getWebhookid());
+			bitacora.setSevento(webhook.getEvent());
+			tmpDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(webhook.getDate());
+			bitacora.setDevento(tmpDate);
+			bitacora.setSlink(webhook.getLink());
+			bitacora.setSreason(webhook.getReason());			
+			bitacora.setSsendingip((webhook.getSending_ip()!=null)?webhook.getSending_ip():"");
+			bitacora.setSmessageid(webhook.getMessageId());
+			bitacoraService.saveBitacora(bitacora);
+		} catch (Exception e) {
+			logger.error("Error en método registerTraceability: {}", e.getMessage());
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 		return true;
 	}
+	
 				
 }

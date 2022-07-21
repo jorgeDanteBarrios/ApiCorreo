@@ -39,7 +39,6 @@ public class Bitacora {
 	
 	public Bitacora() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Bitacora(String kemail, String sclave, Long kmotivo, String stag, String scorreoelectronico, String sasunto,

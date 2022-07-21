@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import mx.gda.correo.entities.Motivo;
 import mx.gda.correo.entities.Origen;
 import mx.gda.correo.objects.Email;
@@ -39,7 +38,6 @@ import sibModel.GetSendersListSenders;
 @CrossOrigin(origins = "*",allowedHeaders = "*")
 @RestController
 @RequestMapping("/ApiCorreo")
-@Api
 public class ApiCorreoController {
 
 	Logger logger= LoggerFactory.getLogger(ApiCorreoController.class);
@@ -55,38 +53,38 @@ public class ApiCorreoController {
 	
 	
 	@GetMapping("/getSenders")
-	@ApiOperation(value = "Listado de remitentes (senders) registrados",notes = "Método para listar los remitentes (senders) registrados")
+	@Operation(description = "Mpara listar los remitentes (senders) registrados", tags = {"Catálogos"})
 	public List<GetSendersListSenders> getSenders() {
 		logger.info("Se consume método getSenders");
 		return correoService.getSenders();
 	}
 	
 	@PostMapping("/sendEmail")
-	@ApiOperation(value = "Envia Correo",notes = "Método para enviar un correo electrónico")
-	public Boolean sendEmail(@Valid @RequestBody Email email) {
+	@Operation(description = "Método para enviar un correo electrónico", tags = {"Envio Correo"})
+	public ResponseEntity<Boolean> sendEmail(@Valid @RequestBody Email email) {
 		logger.info("Se consume método sendEmail");
-		logger.debug(email.toString());
-		return correoService.sendEmail(email);
+		logger.debug("{}",email.toString());
+		return ResponseEntity.ok(correoService.sendEmail(email));
 	}
 	
 	@PostMapping("/sendEmail/resultados/covid")
-	@ApiOperation(value = "Envia Correo resultados covid",notes = "Método para enviar los resultados de una prueba de covid por correo")
-	public Boolean sendResultadoCovid(@Valid @RequestBody EnviaResCovid enviaResCovid) {
+	@Operation(description = "Método para enviar los resultados de una prueba de covid por correo", tags = {"Envio Correo"})
+	public ResponseEntity<Boolean> sendResultadoCovid(@Valid @RequestBody EnviaResCovid enviaResCovid) {
 		logger.info("Se consume método sendEmail");
 		logger.debug(enviaResCovid.toString());
-		return correoResultadosService.sendResultadoCovid(enviaResCovid);
+		return ResponseEntity.ok(correoResultadosService.sendResultadoCovid(enviaResCovid));
 	}
 	
 	@PostMapping("/webhook")
-	@ApiOperation(value = "Registra trazabilidad",notes = "Método para registrar la trazabilidad de un correo electrónico")
+	@Operation(description = "Método para registrar la trazabilidad de un correo electrónico", tags = {"Trazabilidad"})
 	public ResponseEntity<Boolean> saveEmailInfo(@RequestBody Webhook webhook) {
-		logger.info("Se consume método getEmailInfo");
+		logger.info("Se consume método saveEmailInfo-webhook");
 		logger.debug(webhook.toString());
 		return ResponseEntity.ok(correoService.registerTraceability(webhook));
 	}
 	
 	@PostMapping("/origen")
-	@ApiOperation(value = "Guarda origen",notes = "Método para guardar un registro de tipo origen al catálogo")
+	@Operation(description = "Método para guardar un registro de tipo origen", tags = {"Catálogos"})
 	public ResponseEntity<Origen> saveOrigen(@Valid @RequestBody Origen origen){
 		logger.info("Se consume método getEmailInfo");
 		logger.debug(origen.toString());
@@ -94,7 +92,7 @@ public class ApiCorreoController {
 	}
 	
 	@PutMapping("/origen")
-	@ApiOperation(value = "Actualiza origen",notes = "Método para actualizar un registro de tipo origen al catálogo")
+	@Operation(description = "Método para actualizar un registro de tipo origen", tags = {"Catálogos"})
 	public ResponseEntity<Origen> updateOrigen(@Valid @RequestBody Origen origen){
 		logger.info("Se consume método updateOrigen");
 		logger.debug(origen.toString());
@@ -102,7 +100,7 @@ public class ApiCorreoController {
 	}
 	
 	@PostMapping("/motivo")
-	@ApiOperation(value = "Guarda motivo",notes = "Método para actualizar un registro de tipo motivo al catálogo")
+	@Operation(description = "Método para guardar un registro de tipo motivo (desencadenador del envio de un correo)", tags = {"Catálogos"})
 	public ResponseEntity<Motivo> saveMotivo(@Valid @RequestBody Motivo motivo){
 		logger.info("Se consume método saveMotivo");
 		logger.debug(motivo.toString());
@@ -110,7 +108,7 @@ public class ApiCorreoController {
 	}
 	
 	@PutMapping("/motivo")
-	@ApiOperation(value = "Actualiza motivo",notes = "Método para actualizar un registro de tipo motivo al catálogo")
+	@Operation(description = "Método para actualizar un registro de tipo motivo (desencadenador del envio de un correo)", tags = {"Catálogos"})
 	public ResponseEntity<Motivo> updateMotivo(@Valid @RequestBody Motivo motivo){
 		logger.info("Se consume método updateMotivo");
 		logger.debug(motivo.toString());

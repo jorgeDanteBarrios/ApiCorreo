@@ -46,7 +46,6 @@ public class Plantilla {
 
 	public Plantilla() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Plantilla(Long kplantilla, @NotEmpty(message = "El campo sclave no puede ser nulo o vacio") String sclave,

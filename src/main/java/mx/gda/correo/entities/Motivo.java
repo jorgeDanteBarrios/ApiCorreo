@@ -23,7 +23,6 @@ public class Motivo {
 
 	public Motivo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Motivo(Long kmotivo, String sdescripcion, String korigen) {

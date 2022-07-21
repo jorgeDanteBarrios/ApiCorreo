@@ -11,7 +11,6 @@ public class EmailFileAlt {
 	
 	public EmailFileAlt() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public EmailFileAlt(@NotEmpty(message = "El campo de name no puede ser nulo") String name, String contentBase64,

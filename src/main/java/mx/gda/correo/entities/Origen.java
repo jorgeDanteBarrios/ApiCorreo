@@ -23,7 +23,6 @@ public class Origen {
 
 	public Origen() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Origen(Long korigen, @NotEmpty(message = "Favor de ingresar la clave de origen") String sclave,

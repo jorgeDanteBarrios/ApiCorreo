@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiCorreoApplication<ApiCorreo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "mx.gda.correo.ApiCorreoApplication",
+            "projectName": "ApiCorreo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
