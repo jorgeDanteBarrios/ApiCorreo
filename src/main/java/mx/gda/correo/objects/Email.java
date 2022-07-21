@@ -142,9 +142,20 @@ public class Email {
 
 	@Override
 	public String toString() {
-		return "Email [senderId=" + senderId + ", replyTo=" + replyTo + ", to=" + to + ", cc=" + cc + ", bcc=" + bcc
-				+ ", subject=" + subject + ", htmlBody=" + htmlBody + ", files=" + files + ", sclave=" + sclave
-				+ ", motivo=" + motivo + ", tag=" + tag + ", user_reg=" + user_reg + "]";
+		return "{" +
+			" senderId='" + getSenderId() + "'" +
+			", replyTo='" + getReplyTo() + "'" +
+			", to='" + getTo() + "'" +
+			", cc='" + getCc() + "'" +
+			", bcc='" + getBcc() + "'" +
+			", subject='" + getSubject() + "'" +
+			", htmlBody='" + getHtmlBody() + "'" +
+			", files='" + getFiles() + "'" +
+			", sclave='" + getSclave() + "'" +
+			", motivo='" + getMotivo() + "'" +
+			", tag='" + getTag() + "'" +
+			", user_reg='" + getUser_reg() + "'" +
+			"}";
 	}
 
 }

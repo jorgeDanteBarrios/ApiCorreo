@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>mx.gda.correo</groupId>
 	<artifactId>ApiCorreo</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<version>0.0.5-SNAPSHOT</version>
 	<name>ApiCorreo</name>
 	<description>API desarrollada para el envio de correos por parte de GDA</description>
 	<properties>

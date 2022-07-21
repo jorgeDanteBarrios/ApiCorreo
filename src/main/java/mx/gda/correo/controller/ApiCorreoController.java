@@ -61,18 +61,18 @@ public class ApiCorreoController {
 	
 	@PostMapping("/sendEmail")
 	@Operation(description = "Método para enviar un correo electrónico", tags = {"Envio Correo"})
-	public Boolean sendEmail(@Valid @RequestBody Email email) {
+	public ResponseEntity<Boolean> sendEmail(@Valid @RequestBody Email email) {
 		logger.info("Se consume método sendEmail");
-		logger.debug(email.toString());
-		return correoService.sendEmail(email);
+		logger.debug("{}",email.toString());
+		return ResponseEntity.ok(correoService.sendEmail(email));
 	}
 	
 	@PostMapping("/sendEmail/resultados/covid")
 	@Operation(description = "Método para enviar los resultados de una prueba de covid por correo", tags = {"Envio Correo"})
-	public Boolean sendResultadoCovid(@Valid @RequestBody EnviaResCovid enviaResCovid) {
+	public ResponseEntity<Boolean> sendResultadoCovid(@Valid @RequestBody EnviaResCovid enviaResCovid) {
 		logger.info("Se consume método sendEmail");
 		logger.debug(enviaResCovid.toString());
-		return correoResultadosService.sendResultadoCovid(enviaResCovid);
+		return ResponseEntity.ok(correoResultadosService.sendResultadoCovid(enviaResCovid));
 	}
 	
 	@PostMapping("/webhook")
